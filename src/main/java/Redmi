@@ -1,0 +1,31 @@
+    A bulk JPQL update is executed directly in the database and bypasses the persistence context.
+    Any Product entity already loaded in the current persistence context (the first-level cache)
+    keeps its old price, so a later find or query in the same transaction would return stale data.
+    Worse, if such a stale entity is also modified, Hibernate would flush it and overwrite the
+    discounted price. We therefore call flush() before the update (so pending changes are not lost)
+    and clear() after it, which detaches all entities and forces them to be reloaded from the database.
+    Note also that bulk updates do not increment @Version
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
